@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-container-deployment
+  labels:
+    app: multi-container
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multi-container
+  template:
+    metadata:
+      labels:
+        app: multi-container
+    spec:
+      containers:
+      - name: netshoot
+        image: nicolaka/netshoot
+        command: ['sh', '-c', 'sleep 3600']
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
